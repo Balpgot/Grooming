@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать клиента</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<form method="post">
+    <label for="name">Имя</label>
+    <input type="text" th:value="${client.getClientName()}" th:field="${client.clientName}"/>
+    <br/>
+    <label for="mobilePhone">Телефон</label>
+    <input type="text" th:value="${client.getMobilePhone()}" th:field="${client.mobilePhone}"/>
+    <br/>
+    <input type="submit" value="Загрузить клиента"/>
+</form>
+<br/>
+<a th:href="@{/clients}">Назад</a>
+</body>
+</html>

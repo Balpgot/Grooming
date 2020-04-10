@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script>
+        function show_form() {
+            document.getElementById("pet_add_form").style.visibility = "visible";
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Страница клиента</title>
+    <style>
+        #pet_add_form{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<table border="1">
+    <tr><th>№</th><th>ИМЯ</th><th>НОМЕР</th></tr>
+    <tr><td th:text="${client.getId()}"></td>
+        <td th:text="${client.getClientName()}"></td>
+        <td th:text="${client.getMobilePhone()}"></td>
+    </tr>
+</table>
+<br/>
+<a th:href="@{__${#httpServletRequest.requestURI}__/orders}">Заказы клиента</a>
+<br/>
+<a th:href="@{__${#httpServletRequest.requestURI}__/edit}">Редактировать</a>
+<br/>
+<table border="1">
+    <tr><th>№</th><th>КЛИЧКА</th></tr>
+    <tr th:each="petList:${petList}">
+        <td th:text="${petList.getId()}"></td>
+        <td th:text="${petList.getName()}"></td>
+    </tr>
+</table>
+<br/>
+<a th:href="@{/clients}">Назад</a>
+<br/>
+<button id="form_button" onclick="show_form()">Добавить питомца</button>
+<br/>
+<form method="post" id="pet_add_form">
+    <label for="name">Кличка</label>
+    <input type="text" th:field="${newPet.name}"/>
+    <br/>
+    <label for="comment">Комментарий</label>
+    <input type="text" th:field="${newPet.comment}"/>
+    <br/>
+    <input type="submit" value="Добавить"/>
+</form>
+<br/>
+</body>
+</body>
+</html>

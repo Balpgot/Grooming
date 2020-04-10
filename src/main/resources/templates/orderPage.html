@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница заказа</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+
+<table border="1">
+    <tr><th>№</th><th>КЛИЕНТ</th><th>ДАТА</th><th>НАЧАЛО</th><th>КОНЕЦ</th><th>СТОИМОСТЬ</th></tr>
+    <tr><td th:text="${order.getId()}"></td>
+        <td><a th:href="@{'/clients/' + ${order.getClient().getId()}}" th:text="${order.getClient().getClientName()}"></a></td>
+        <td th:text="${order.getDate()}"></td>
+        <td th:text="${order.getStartTime()}"></td>
+        <td th:text="${order.getFinishTime()}"></td>
+        <td th:text="${order.getPrice()}"></td>
+    </tr>
+</table>
+<br/>
+<a th:href="@{__${#httpServletRequest.requestURI}__/edit}">Редактировать</a>
+<br/>
+<a th:href="@{/orders}">Назад</a>
+</body>
+</html>

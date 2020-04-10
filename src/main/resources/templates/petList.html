@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Питомцы</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<table border="1">
+    <tr><th>№</th><th>Кличка</th><th>Хозяин</th><th>Комментарий</th></tr>
+    <tr th:each="petList:${petList}">
+        <td th:text="${petList.getId()}"></td>
+        <td th:text="${petList.getName()}"></td>
+        <td th:text="${petList.getClient.getName()}">
+            <a th:href="@{/clients/${petList.getClient.getId()}}"
+               th:text="${petList.getClient.getId()}">
+            </a>
+        </td>
+        <td th:text="${petList.getComment()}"></td>
+    </tr>
+</table>
+<br/>
+<a th:href="@{/pets/add}">Добавить нового питомца</a>
+<br/>
+</body>
+</html>
