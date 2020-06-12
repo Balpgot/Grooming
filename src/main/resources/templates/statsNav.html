@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<h2>Статистика по:</h2>
+<nav>
+    <ul>
+        <li><a th:href="@{/statistics/orders}">Заказы</a></li>
+        <li><a th:href="@{/statistics/clients}">Клиенты</a></li>
+    </ul>
+</nav>
+</body>
+</body>
+</html>

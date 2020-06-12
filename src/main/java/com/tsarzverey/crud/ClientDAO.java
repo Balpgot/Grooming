@@ -17,15 +17,18 @@ public class ClientDAO {
     @OneToMany(mappedBy = "client")
     @Column(name = "client_pets")
     private Set<PetDAO> clientPets;
+    @Column(name = "local")
+    private boolean isLocal;
     @OneToMany(mappedBy = "client")
     @Column(name = "orders")
     private Set<NOrderDAO> clientOrders;
 
     public ClientDAO(){}
 
-    public ClientDAO(String clientName, String mobilePhone) {
+    public ClientDAO(String clientName, String mobilePhone, boolean isLocal) {
         this.clientName = clientName;
         this.mobilePhone = mobilePhone;
+        this.isLocal = isLocal;
     }
 
     public Long getId() {
@@ -50,6 +53,14 @@ public class ClientDAO {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public boolean isLocal() {
+        return isLocal;
+    }
+
+    public void setLocal(boolean local) {
+        isLocal = local;
     }
 
     public Set<PetDAO> getClientPets() {

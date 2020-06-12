@@ -17,9 +17,9 @@
     <tr th:each="petList:${petList}">
         <td th:text="${petList.getId()}"></td>
         <td th:text="${petList.getName()}"></td>
-        <td th:text="${petList.getClient.getName()}">
-            <a th:href="@{/clients/${petList.getClient.getId()}}"
-               th:text="${petList.getClient.getId()}">
+        <td th:text="${petList.getClient().getClientName()}">
+            <a th:href="@{/clients/${petList.getClient().getId()}}"
+               th:text="${petList.getClient().getId()}">
             </a>
         </td>
         <td th:text="${petList.getComment()}"></td>

@@ -19,6 +19,9 @@
     <label for="mobilePhone">Телефон</label>
     <input type="text" th:value="${client.getMobilePhone()}" th:field="${client.mobilePhone}"/>
     <br/>
+    <label for="local">Местный</label>
+    <input type="checkbox" th:checked="${client.isLocal()}" th:field="${client.local}"/>
+    <br/>
     <input type="submit" value="Загрузить клиента"/>
 </form>
 <br/>

@@ -60,12 +60,14 @@ public class ClientController {
         ClientDAO oldClient = clientRepo.findById(id).get();
         oldClient.setClientName(client.getClientName());
         oldClient.setMobilePhone(client.getMobilePhone());
+        oldClient.setLocal(client.isLocal());
         clientRepo.saveAndFlush(oldClient);
         return "redirect:/clients/"+id;
     }
 
     @PostMapping(value = "/clients/add",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addClient(ClientDAO client){
+        System.out.println(client.isLocal());
         clientRepo.save(client);
         clientRepo.flush();
         return "redirect:/clients";

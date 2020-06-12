@@ -13,11 +13,13 @@
 </table>
 <br/>
 <table border="1">
-    <tr><th>ID</th><th>ИМЯ</th><th>НОМЕР</th></tr>
+    <tr><th>ID</th><th>ИМЯ</th><th>НОМЕР</th><th>МЕСТНЫЙ</th></tr>
     <tr th:each="clientList:${clientList}">
         <td th:text="${clientList.getId()}"></td>
         <td><a th:href="@{${#httpServletRequest.requestURI}+'/'+${clientList.getId()}}" th:text="${clientList.getClientName()}"></a></td>
         <td th:text="${clientList.getMobilePhone()}"></td>
+        <td th:if="${clientList.isLocal()}">Да</td>
+        <td th:unless="${clientList.isLocal()}"></td>
     </tr>
 </table>
 <br/>
