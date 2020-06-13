@@ -12,6 +12,8 @@
         <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
 </table>
 <br/>
+<a th:href="@{/clients/add}">Добавить пользователя</a>
+<br/>
 <table border="1">
     <tr><th>ID</th><th>ИМЯ</th><th>НОМЕР</th><th>МЕСТНЫЙ</th></tr>
     <tr th:each="clientList:${clientList}">
@@ -22,7 +24,5 @@
         <td th:unless="${clientList.isLocal()}"></td>
     </tr>
 </table>
-<br/>
-<a th:href="@{/clients/add}">Добавить пользователя</a>
 </body>
 </html>

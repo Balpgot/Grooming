@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Статистика</title>
+    <title>Статистика по доходам</title>
 </head>
 <body>
 <table border="1">
@@ -12,13 +12,9 @@
         <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
 </table>
 <br/>
-<h2>Статистика по:</h2>
-<nav>
-    <ul>
-        <li><a th:href="@{/statistics/orders}">Заказы</a></li>
-        <li><a th:href="@{/statistics/clients}">Клиенты</a></li>
-        <li><a th:href="@{/statistics/finance}">Доходность</a></li>
-    </ul>
-</nav>
+<table border="1">
+    <tr><td>Доход всего:</td><td th:text="${counter}"></td></tr>
+    <tr><td>Заказов за месяц:</td><td th:text="${counter_month}"></td></tr>
+</table>
 </body>
 </html>

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface IClientRepository extends JpaRepository<ClientDAO, Long> {
     Long countAllByisLocalIsTrue();
-    Long findAllByRegistrationBetween(Calendar start, Calendar finish);
+    Long countAllByRegistrationBetween(Calendar start, Calendar finish);
     Optional<ClientDAO> findFirstByMobilePhone(String phone);
 }

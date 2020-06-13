@@ -61,7 +61,7 @@ public class NOrderController {
 
     @GetMapping(value = "/orders/{id}")
     public String orderById(@PathVariable Long id, Model model){
-        model.addAttribute("order", orderRepo.findById(id));
+        model.addAttribute("order", orderRepo.findById(id).get());
         return "orderPage";
     }
 

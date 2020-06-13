@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика по заказам</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<table border="1">
+    <tr><td>Всего заказов:</td><td th:text="${counter}"></td></tr>
+    <tr><td>Заказов от местных:</td><td th:text="${counter_local}"></td></tr>
+    <tr><td>Заказов от туристов:</td><td th:text="${counter_tourist}"></td></tr>
+    <tr><td>Проценты заказов от местных и туристов:</td><td th:text="${local_percent} + '% / ' + ${tourist_percent} + '%'"></td></tr>
+    <tr><td>Количество новых заказов за месяц:</td><td th:text="${counter_new}"></td></tr>
+</table>
+</body>
+</html>
