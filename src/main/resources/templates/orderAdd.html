@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить заказ</title>
+</head>
+<body>
+<body><table bnewOrder="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<form th:method="post">
+    <label for="client">Телефон клиента</label>
+    <input type="text"  th:field="${newOrder.clientPhone}"/>
+    <br/>
+    <label for="date">Дата</label>
+    <input type="date"  th:field="${newOrder.date}"/>
+    <br/>
+    <label for="time">Начало</label>
+    <input type="time"  th:field="${newOrder.startTime}"/>
+    <br/>
+    <label for="time">Конец</label>
+    <input type="time" th:for th:field="${newOrder.finishTime}"/>
+    <br/>
+    <label for="price">Стоимость</label>
+    <input type="number" th:field="${newOrder.price}"/>
+    <br/>
+    <input type="submit" value="Добавить заказ"/>
+</form>
+<br/>
+<a th:href="@{/orders}">Назад</a>
+</body>
+</body>
+</html>

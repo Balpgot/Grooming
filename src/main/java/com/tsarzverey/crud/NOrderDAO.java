@@ -1,6 +1,11 @@
 package com.tsarzverey.crud;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -12,14 +17,14 @@ public class NOrderDAO {
     @ManyToOne
     @JoinColumn(name = "clientOrders", nullable = false)
     private ClientDAO client;
-    private Date date;
-    private Date startTime;
-    private Date finishTime;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime finishTime;
     private Integer price;
 
     public NOrderDAO(){}
 
-    public NOrderDAO(ClientDAO client, Date date, Date startTime, Date finishTime, Integer price) {
+    public NOrderDAO(ClientDAO client, LocalDate date, LocalTime startTime, LocalTime finishTime, Integer price) {
         this.client = client;
         this.date = date;
         this.startTime = startTime;
@@ -43,27 +48,27 @@ public class NOrderDAO {
         this.client = client;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public Date getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date time) {
-        this.startTime = time;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getFinishTime() {
+    public LocalTime getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(LocalTime finishTime) {
         this.finishTime = finishTime;
     }
 

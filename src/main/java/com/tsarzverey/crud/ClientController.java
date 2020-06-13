@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 @Controller
 @Slf4j
 public class ClientController {
@@ -67,7 +72,8 @@ public class ClientController {
 
     @PostMapping(value = "/clients/add",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addClient(ClientDAO client){
-        System.out.println(client.isLocal());
+        System.out.println(Calendar.getInstance(TimeZone.getTimeZone(ZoneId.of("Europe/Moscow"))));
+        client.setRegistration(Calendar.getInstance(TimeZone.getTimeZone(ZoneId.of("Europe/Moscow"))));
         clientRepo.save(client);
         clientRepo.flush();
         return "redirect:/clients";

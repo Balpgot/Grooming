@@ -7,20 +7,56 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
 @Slf4j
 @Controller
 public class NOrderController {
 
     INOrderRepository orderRepo;
+    IClientRepository clientRepo;
 
-    public NOrderController(INOrderRepository orderRepo) {
+    public NOrderController(INOrderRepository orderRepo, IClientRepository clientRepo) {
         this.orderRepo = orderRepo;
+        this.clientRepo = clientRepo;
     }
 
     @GetMapping(value = "/orders")
     public String all(Model model){
         model.addAttribute("orderList", orderRepo.findAll());
         return "orderList";
+    }
+
+    @GetMapping(value = "/orders/add")
+    public String addOrderPage(Model model){
+        model.addAttribute("newOrder", new NOrderDTO());
+        return "orderAdd";
+    }
+
+    @PostMapping(value = "/orders/add")
+    public String addOrder(NOrderDTO order){
+        NOrderDAO orderDAO = new NOrderDAO();
+        orderDAO.setClient(clientRepo.findFirstByMobilePhone(order.getClientPhone()).get());
+        orderDAO.setDate(order.getDate());
+        orderDAO.setStartTime(convertTime(order.getStartTime()));
+        orderDAO.setFinishTime(convertTime(order.getFinishTime()));
+        orderDAO.setPrice(Integer.parseInt(order.getPrice()));
+        orderRepo.saveAndFlush(orderDAO);
+        Long id = orderRepo.findFirstByClient_MobilePhoneAndDate(order.getClientPhone(), order.getDate()).get().getId();
+        return "redirect:/orders/" + id;
+    }
+
+    private LocalTime convertTime(String s){
+        String [] timeString = s.split(":");
+        return LocalTime.of(
+                Integer.parseInt(timeString[0]),
+                Integer.parseInt(timeString[1])
+        );
     }
 
     @GetMapping(value = "/orders/{id}")

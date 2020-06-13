@@ -1,6 +1,8 @@
 package com.tsarzverey.crud;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,16 +21,20 @@ public class ClientDAO {
     private Set<PetDAO> clientPets;
     @Column(name = "local")
     private boolean isLocal;
+    @Column(name = "registration")
+    private Calendar registration;
     @OneToMany(mappedBy = "client")
     @Column(name = "orders")
     private Set<NOrderDAO> clientOrders;
 
+
     public ClientDAO(){}
 
-    public ClientDAO(String clientName, String mobilePhone, boolean isLocal) {
+    public ClientDAO(String clientName, String mobilePhone, boolean isLocal, Calendar registration) {
         this.clientName = clientName;
         this.mobilePhone = mobilePhone;
         this.isLocal = isLocal;
+        this.registration = registration;
     }
 
     public Long getId() {
@@ -61,6 +67,14 @@ public class ClientDAO {
 
     public void setLocal(boolean local) {
         isLocal = local;
+    }
+
+    public Calendar getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Calendar registration) {
+        this.registration = registration;
     }
 
     public Set<PetDAO> getClientPets() {
