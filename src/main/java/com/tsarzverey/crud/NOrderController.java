@@ -51,14 +51,6 @@ public class NOrderController {
         return "redirect:/orders/" + id;
     }
 
-    private LocalTime convertTime(String s){
-        String [] timeString = s.split(":");
-        return LocalTime.of(
-                Integer.parseInt(timeString[0]),
-                Integer.parseInt(timeString[1])
-        );
-    }
-
     @GetMapping(value = "/orders/{id}")
     public String orderById(@PathVariable Long id, Model model){
         model.addAttribute("order", orderRepo.findById(id).get());
@@ -89,5 +81,13 @@ public class NOrderController {
                 проверка номера телефона при изменении
          */
         return "redirect:/orders/"+id;
+    }
+
+    private LocalTime convertTime(String s){
+        String [] timeString = s.split(":");
+        return LocalTime.of(
+                Integer.parseInt(timeString[0]),
+                Integer.parseInt(timeString[1])
+        );
     }
 }

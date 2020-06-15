@@ -20,5 +20,7 @@
     <tr><td>Количество возвращающихся клиентов:</td><td th:text="${counter_return}"></td></tr>
     <tr><td>Количество новых клиентов за месяц:</td><td th:text="${counter_new}"></td></tr>
 </table>
+<br/>
+<a th:href="@{/statistics/clients/plots}">Показать графики</a>
 </body>
 </html>

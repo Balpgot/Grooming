@@ -1,6 +1,7 @@
 package com.tsarzverey.crud;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class ClientDAO {
     @Column(name = "local")
     private boolean isLocal;
     @Column(name = "registration")
-    private Calendar registration;
+    private LocalDate registration;
     @OneToMany(mappedBy = "client")
     @Column(name = "orders")
     private Set<NOrderDAO> clientOrders;
@@ -30,7 +31,7 @@ public class ClientDAO {
 
     public ClientDAO(){}
 
-    public ClientDAO(String clientName, String mobilePhone, boolean isLocal, Calendar registration) {
+    public ClientDAO(String clientName, String mobilePhone, boolean isLocal, LocalDate registration) {
         this.clientName = clientName;
         this.mobilePhone = mobilePhone;
         this.isLocal = isLocal;
@@ -69,11 +70,11 @@ public class ClientDAO {
         isLocal = local;
     }
 
-    public Calendar getRegistration() {
+    public LocalDate getRegistration() {
         return registration;
     }
 
-    public void setRegistration(Calendar registration) {
+    public void setRegistration(LocalDate registration) {
         this.registration = registration;
     }
 

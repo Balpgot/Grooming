@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Графики по клиентам</title>
+    <script src="/static/plotly.js" charset="utf-8"></script>
+    <script src="/static/script.js" charset="utf-8"></script>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<script th:inline="javascript">
+    function show(){
+        let data = /*[[${clients_month}]]*/ [];
+        showPlot(data);
+    }
+</script>
+<table>
+    <tr>
+        <td><input type="radio" id="radio_month" name="period">
+            <label onclick="show()" for="radio_month">Месяц</label></td>
+        <td><input type="radio" id="radio_year" name="period">
+            <label th:onclick="showPlot(${clients_year})" for="radio_year">Год</label></td>
+        <td><input type="radio" id="radio_custom" name="period">
+            <label for="radio_custom">Определенный период</label></td>
+    </tr>
+</table>
+<div id="plotPlace"></div>
+</body>
+</html>

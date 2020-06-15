@@ -1,12 +1,20 @@
 package com.tsarzverey.crud;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -31,16 +39,8 @@ public class StatisticsController {
         Long counter = clientRepo.count();
         Long counter_local = clientRepo.countAllByisLocalIsTrue();
         Long counter_return = clientRepo.findAll().stream().filter(x -> x.getClientOrders().size()>1).count();
-        Calendar start = Calendar.getInstance();
-        start.set(Calendar.DAY_OF_MONTH, 1);
-        start.set(Calendar.HOUR_OF_DAY, 0);
-        start.set(Calendar.MINUTE, 0);
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.DAY_OF_MONTH, 1);
-        end.set(Calendar.HOUR_OF_DAY, 0);
-        end.set(Calendar.MINUTE, 0);
-        end.add(Calendar.MONTH, 1);
-        end.add(Calendar.DAY_OF_MONTH, -1);
+        LocalDate start = LocalDate.now().withDayOfMonth(1);
+        LocalDate end = LocalDate.now().withDayOfMonth(1).plusMonths(1).minusDays(1);
         Long counter_month_new = clientRepo.countAllByRegistrationBetween(start, end);
         double local_percent = ((double)counter_local)*100/counter;
         model.addAttribute("counter",counter);
@@ -51,6 +51,41 @@ public class StatisticsController {
         model.addAttribute("local_percent", local_percent);
         model.addAttribute("tourist_percent", 100d - local_percent);
         return "statsClients";
+    }
+
+    @GetMapping(value = "/statistics/clients/plots")
+    public String clientPlots(@RequestParam(required = false) LocalDate start,
+                              @RequestParam(required = false) LocalDate end,
+                              Model model){
+        Plot plot_month;
+        Plot plot_year;
+        Plot plot_period = null;
+        plot_month = createPlot(
+                LocalDate.now().withDayOfMonth(1),
+                LocalDate.now().withDayOfMonth(1).plusMonths(1).minusDays(1),
+                "Клиенты за месяц");
+        plot_year = createPlot(
+                LocalDate.now().withMonth(1).withDayOfMonth(1),
+                LocalDate.now().withMonth(1).withDayOfMonth(1).plusYears(1).minusDays(1),
+                "Клиенты за год");
+        if(start!=null && end!=null){
+            plot_period = createPlot(start,end,"Клиенты за выбранный период");
+        }
+        model.addAttribute("clients_month", JSON.toJSON(plot_month));
+        model.addAttribute("clients_year", JSON.toJSON(plot_year));
+        model.addAttribute("clients_period", JSON.toJSON(plot_period));
+        return "statsClientPlots";
+    }
+
+    private Plot createPlot(LocalDate start, LocalDate end, String name){
+        List<String> dates = new ArrayList<>();
+        List<Long> values = new ArrayList<>();
+        while (start.isBefore(end)){
+            dates.add(start.getDayOfMonth() + "." + start.getMonth().getValue());
+            values.add(clientRepo.countAllByRegistration(start));
+            start = start.plusDays(1);
+        }
+        return new Plot(dates,values,name);
     }
 
     @GetMapping(value = "/statistics/orders")

@@ -11,5 +11,6 @@ public interface INOrderRepository extends JpaRepository<NOrderDAO, Long> {
     Long countAllByClient_isLocalIsTrue();
     Long countAllByDateBetween(LocalDate start, LocalDate end);
     List<NOrderDAO> findAllByDateBetween(LocalDate start, LocalDate end);
+    List<NOrderDAO> findAllByDate(LocalDate date);
 
 }
