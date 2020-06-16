@@ -31,8 +31,8 @@
 <h2>Заказы на месяц</h2>
 <table border="1">
     <tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr>
-    <tr th:each="i:${#numbers.sequence(0, 4)">
-        <th:block th:each="day:${month}">
+    <tr th:each="i:${#numbers.sequence(0, month.size()-1,1)}">
+        <th:block th:each="day:${month.get(i)}">
             <td>
                 <table border="1">
                     <tr th:each="order:${day}">
