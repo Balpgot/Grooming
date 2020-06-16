@@ -26,6 +26,14 @@ public class ClientController {
     public ClientController(IClientRepository clientRepo, IPetRepository petRepo) {
         this.clientRepo = clientRepo;
         this.petRepo = petRepo;
+        this.clientRepo.saveAndFlush(
+                new ClientDAO(
+                        "Иван",
+                        "+79995359742",
+                        true,
+                        LocalDate.of(2020,6, 14)
+                )
+        );
     }
 
     @GetMapping(value = "/")

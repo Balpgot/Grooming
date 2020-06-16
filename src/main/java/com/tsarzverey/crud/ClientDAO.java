@@ -93,4 +93,5 @@ public class ClientDAO {
     public void setClientOrders(Set<NOrderDAO> clientOrders) {
         this.clientOrders = clientOrders;
     }
+
 }

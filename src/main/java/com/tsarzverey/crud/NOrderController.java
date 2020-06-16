@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.swing.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -24,6 +25,30 @@ public class NOrderController {
     public NOrderController(INOrderRepository orderRepo, IClientRepository clientRepo) {
         this.orderRepo = orderRepo;
         this.clientRepo = clientRepo;
+        orderRepo.saveAndFlush(
+                new NOrderDAO(
+                        clientRepo.findFirstByMobilePhone("+79995359742").get(),
+                        LocalDate.of(2020,6,15),
+                        LocalTime.of(9,0),
+                        LocalTime.of(10,0),
+                        1000
+                ));
+        orderRepo.saveAndFlush(
+                new NOrderDAO(
+                        clientRepo.findFirstByMobilePhone("+79995359742").get(),
+                        LocalDate.of(2020,6,15),
+                        LocalTime.of(11,0),
+                        LocalTime.of(12,0),
+                        1000
+                ));
+        orderRepo.saveAndFlush(
+                new NOrderDAO(
+                        clientRepo.findFirstByMobilePhone("+79995359742").get(),
+                        LocalDate.of(2020,6,18),
+                        LocalTime.of(11,0),
+                        LocalTime.of(12,0),
+                        1000
+                ));
     }
 
     @GetMapping(value = "/orders")

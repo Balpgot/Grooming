@@ -12,9 +12,35 @@
         <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
 </table>
 <br/>
-<table>
+<h2>Заказы на неделю</h2>
+<table border="1">
+    <tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr>
     <tr>
-
+        <th:block th:each="day:${week}">
+            <td>
+                <table border="1">
+                    <tr th:each="order:${day}">
+                        <td th:text="${order}"></td>
+                    </tr>
+                </table>
+            </td>
+        </th:block>
+    </tr>
+</table>
+<br/>
+<h2>Заказы на месяц</h2>
+<table border="1">
+    <tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr>
+    <tr th:each="i:${#numbers.sequence(0, 4)">
+        <th:block th:each="day:${month}">
+            <td>
+                <table border="1">
+                    <tr th:each="order:${day}">
+                        <td th:text="${order}"></td>
+                    </tr>
+                </table>
+            </td>
+        </th:block>
     </tr>
 </table>
 </body>
