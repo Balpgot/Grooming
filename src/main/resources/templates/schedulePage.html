@@ -23,9 +23,10 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+<body>
 <nav class="navbar navbar-expand-sm bg-light">
     <a class="navbar-brand" >
-        <img th:src="@{images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/}">Меню</a>
@@ -43,7 +44,7 @@
 </nav>
 <div class="container-fluid">
 <h2>Заказы на неделю</h2>
-<table class="table table-bordered">
+<table class="table table-sm table-bordered">
     <thead>
         <tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr>
     </thead>
@@ -51,14 +52,16 @@
         <tr>
             <th:block th:each="day:${week}">
                 <td th:switch="${day.get(0).isBlank()}">
-                    <table th:case="false" border="1">
+                    <table th:case="false" class="table table-striped table-sm">
                         <tr th:each="order:${day}">
                             <td th:utext="${order}"></td>
                         </tr>
                     </table>
-                    <table th:case="true">
+                    <div th:case="true">
+                    </div>
+                    <!--<table th:case="true">
                         <tr><td th:width="80px" th:height="60px"></td></tr>
-                    </table>
+                    </table>-->
                 </td>
             </th:block>
         </tr>
@@ -84,7 +87,7 @@
         </th:block>
     </tr>
 </table> -->
-    <table class="table table-bordered">
+    <table class="table table-sm table-bordered">
         <thead class="thead-light">
             <tr><th>ПН</th><th>ВТ</th><th>СР</th><th>ЧТ</th><th>ПТ</th><th>СБ</th><th>ВС</th></tr>
         </thead>
@@ -92,15 +95,17 @@
         <tr th:each="i:${#numbers.sequence(0, month.size()-1,1)}">
             <th:block th:each="day:${month.get(i)}">
                 <td th:switch="${day.get(0).isBlank()}">
-                    <table th:case="false" border="1">
+                    <table th:case="false" class="table table-sm table-striped">
                         <tr th:each="order:${day}" th:switch="${order}">
                             <td th:case="' '" th:utext="${order}"></td>
                             <td th:case="*" th:utext="${order}"></td>
                         </tr>
                     </table>
-                    <table th:case="true">
+                    <div th:case="true">
+                    </div>
+                    <!--<table >
                         <tr><td></td></tr>
-                    </table>
+                    </table>-->
                 </td>
             </th:block>
         </tr>

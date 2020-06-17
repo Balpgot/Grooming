@@ -7,13 +7,39 @@
     <title>Графики по клиентам</title>
     <script src="/static/plotly.js" charset="utf-8"></script>
     <script src="/static/script.js" charset="utf-8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table border="1">
-    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
-        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
-</table>
-<br/>
+<nav class="navbar navbar-expand-sm bg-light">
+    <a class="navbar-brand" >
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Меню</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/clients}">Клиенты</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/orders}">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/statistics}">Статистика</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
 <script th:inline="javascript">
     function show(){
         let data = /*[[${clients_month}]]*/ [];
@@ -31,5 +57,6 @@
     </tr>
 </table>
 <div id="plotPlace"></div>
+</div>
 </body>
 </html>

@@ -70,7 +70,6 @@ public class ScheduleController {
             orders.add(ordersAsString);
             start = start.plusDays(1);
         }
-        System.out.println(orders);
         return orders;
     }
 
@@ -105,7 +104,6 @@ public class ScheduleController {
             }
             else{
                 for (NOrderDAO order: dateOrders) {
-                    System.out.println(order);
                     ordersAsString.add(getOrderString(order));
                 }
             }

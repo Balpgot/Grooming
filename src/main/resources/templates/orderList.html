@@ -18,9 +18,10 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+<body>
 <nav class="navbar navbar-expand-sm bg-light">
     <a class="navbar-brand" >
-        <img th:src="@{images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/}">Меню</a>
@@ -48,7 +49,7 @@
             <td><a th:href="@{'/clients/' + ${orderList.getClient().getId()}}" th:text="${orderList.getClient().getClientName()}"></a></td>
             <td th:text="${orderList.getDate()}"></td><td th:text="${orderList.getStartTime()}"></td>
             <td th:text="${orderList.getPrice()}"></td>
-            <td><a th:href="@{'/orders/' + ${orderList.getId()} + '/edit'}">Редактировать</a></td>
+            <td><a class="btn btn-info" th:href="@{'/orders/' + ${orderList.getId()} + '/edit'}">Редактировать</a></td>
         </tr>
     </tbody>
 </table>

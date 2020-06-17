@@ -76,6 +76,12 @@ public class NOrderController {
         return "redirect:/orders/" + id;
     }
 
+    @GetMapping(value = "/clients/{id}/orders")
+    public String showClientOrders(@PathVariable Long id, Model model){
+        model.addAttribute("orders", orderRepo.findAllByClient_Id(id));
+        return "clientOrders";
+    }
+
     @GetMapping(value = "/orders/{id}")
     public String orderById(@PathVariable Long id, Model model){
         model.addAttribute("order", orderRepo.findById(id).get());

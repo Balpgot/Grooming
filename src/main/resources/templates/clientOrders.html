@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Навигация</title>
+    <title>Заказы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -38,17 +38,19 @@
     </ul>
 </nav>
 <div class="container-fluid">
-    <div>
-        <h1>Навигация</h1>
-        <nav>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" th:href="@{/clients}">Клиенты</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/orders}">Заказы</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/statistics}">Статистика</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/shedule}">Расписание</a></li>
-            </ul>
-        </nav>
-    </div>
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr><th>ID</th><th>КЛИЕНТ</th><th>ДАТА</th><th>ВРЕМЯ</th><th>ЦЕНА</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="order:${orders}"><td th:text="${order.getId()}"></td>
+            <td><a th:href="@{'/clients/' + ${order.getClient().getId()}}" th:text="${order.getClient().getClientName()}"></a></td>
+            <td th:text="${order.getDate()}"></td><td th:text="${orders.getStartTime()}"></td>
+            <td th:text="${order.getPrice()}"></td>
+            <td><a class="btn btn-info" th:href="@{'/orders/' + ${order.getId()} + '/edit'}">Редактировать</a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
