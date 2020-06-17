@@ -3,61 +3,96 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script>
-        function show_form() {
-            document.getElementById("pet_add_form").style.visibility = "visible";
-        }
-    </script>
     <meta charset="UTF-8">
     <title>Страница клиента</title>
-    <style>
-        #pet_add_form{
-            visibility: hidden;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table border="1">
-    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
-        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
-</table>
-<br/>
-<table border="1">
-    <tr><th>№</th><th>ИМЯ</th><th>НОМЕР</th><th>МЕСТНЫЙ</th></tr>
-    <tr><td th:text="${client.getId()}"></td>
-        <td th:text="${client.getClientName()}"></td>
-        <td th:text="${client.getMobilePhone()}"></td>
-        <td th:if="${client.isLocal()}">Да</td>
-        <td th:unless="${client.isLocal()}"></td>
-    </tr>
-</table>
-<br/>
-<a th:href="@{__${#httpServletRequest.requestURI}__/orders}">Заказы клиента</a>
-<br/>
-<a th:href="@{__${#httpServletRequest.requestURI}__/edit}">Редактировать</a>
-<br/>
-<table border="1">
-    <tr><th>№</th><th>КЛИЧКА</th></tr>
-    <tr th:each="petList:${petList}">
-        <td th:text="${petList.getId()}"></td>
-        <td th:text="${petList.getName()}"></td>
-    </tr>
-</table>
-<br/>
-<a th:href="@{/clients}">Назад</a>
-<br/>
-<button id="form_button" onclick="show_form()">Добавить питомца</button>
-<br/>
-<form method="post" id="pet_add_form">
-    <label for="name">Кличка</label>
-    <input type="text" th:field="${newPet.name}"/>
+<nav class="navbar navbar-expand-sm bg-light">
+    <a class="navbar-brand" >
+        <img th:src="@{images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Меню</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/clients}">Клиенты</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/orders}">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/statistics}">Статистика</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr><th>№</th><th>ИМЯ</th><th>НОМЕР</th><th>МЕСТНЫЙ</th></tr>
+        </thead>
+        <tbody>
+            <tr><td th:text="${client.getId()}"></td>
+                <td th:text="${client.getClientName()}"></td>
+                <td th:text="${client.getMobilePhone()}"></td>
+                <td th:if="${client.isLocal()}">Да</td>
+                <td th:unless="${client.isLocal()}"></td>
+            </tr>
+        </tbody>
+    </table>
     <br/>
-    <label for="comment">Комментарий</label>
-    <input type="text" th:field="${newPet.comment}"/>
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr><th>№</th><th>КЛИЧКА</th><th>ТИП</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="petList:${petList}">
+                <td th:text="${petList.getId()}"></td>
+                <td th:text="${petList.getName()}"></td>
+                <td th:text="${petList.getType()}"></td>
+            </tr>
+        </tbody>
+    </table>
     <br/>
-    <input type="submit" value="Добавить"/>
-</form>
-<br/>
-</body>
+    <div class="btn-group">
+        <a class="btn btn-info" th:href="@{__${#httpServletRequest.requestURI}__/orders}">Заказы клиента</a>
+        <a class="btn btn-info" th:href="@{__${#httpServletRequest.requestURI}__/edit}">Редактировать</a>
+    </div>
+    <br/>
+    <br/>
+    <button class="btn btn-primary" id="form_button" data-toggle="collapse"
+            data-target="#pet_add_form">Добавить питомца</button>
+    <br/>
+    <form method="post" id="pet_add_form" class="collapse">
+        <div class="form-group">
+            <label for="name">Кличка</label>
+            <input class="form-control" type="text" id="name" th:field="${newPet.name}"/>
+        </div>
+        <div class="form-group">
+            <label for="type">Тип</label>
+            <select class="form-control" th:field="${newPet.type}" id="type" size="1">
+                <option value="" disabled>Выберите вид животного</option>
+                <option value="Собака">Собака</option>
+                <option value="Кошка">Кошка</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="comment">Комментарий</label>
+            <input class="form-control" id="comment" type="text" th:field="${newPet.comment}"/>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Добавить"/>
+    </form>
+</div>
 </body>
 </html>

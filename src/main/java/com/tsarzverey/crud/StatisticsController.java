@@ -127,4 +127,16 @@ public class StatisticsController {
         model.addAttribute("counter_month", counter_month);
         return "statsFinance";
     }
+
+    @GetMapping(value = "/statistics/pets")
+    public String petStats(Model model){
+        long counter = petRepo.count();
+        Long counter_dogs = petRepo.countAllByType("Собака");
+        model.addAttribute("counter",counter);
+        model.addAttribute("counter_dogs", counter_dogs);
+        model.addAttribute("counter_cats", counter - counter_dogs);
+        model.addAttribute("dog_percent", ((double) counter_dogs)*100/counter);
+        model.addAttribute("cat_percent", 100d - ((double) counter_dogs)*100/counter);
+        return "statsPets";
+    }
 }

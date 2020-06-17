@@ -5,33 +5,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактировать заказ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-<body><table border="1">
-    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
-        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
-</table>
-<br/>
-<form th:method="post">
-    <label for="client">Телефон клиента</label>
-    <input type="text" th:value="${client.getMobilePhone()}" th:field="${client.mobilePhone}"/>
-    <br/>
-    <label for="date">Дата</label>
-    <input type="date" th:value="${order.getDate()}" th:field="${order.date}"/>
-    <br/>
-    <label for="time">Начало</label>
-    <input type="time" th:value="${order.getStartTime()}" th:field="${order.startTime}"/>
-    <br/>
-    <label for="time">Конец</label>
-    <input type="time" th:value="${order.getFinishTime()}" th:field="${order.finishTime}"/>
-    <br/>
-    <label for="price">Стоимость</label>
-    <input type="number" th:value="${order.getPrice()}" th:field="${order.price}"/>
-    <br/>
-    <input type="submit" value="Редактировать заказ"/>
+<nav class="navbar navbar-expand-sm bg-light">
+    <a class="navbar-brand" >
+        <img th:src="@{images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Меню</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/clients}">Клиенты</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/orders}">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/statistics}">Статистика</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+<form th:method="post" class="was-validated">
+    <div class="form-group">
+        <label for="client">Телефон клиента</label>
+        <input class="form-control" type="text" id="client" th:value="${client.getMobilePhone()}" th:field="${client.mobilePhone}" required/>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Это поле должно быть заполнено.</div>
+    </div>
+    <div class="form-group">
+        <label for="date">Дата</label>
+        <input type="date" id="date" th:value="${order.getDate()}" th:field="${order.date}" required/>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Это поле должно быть заполнено.</div>
+    </div>
+    <div class="form-group">
+        <label for="time-start">Начало</label>
+        <input type="time" id="time-start" th:value="${order.getStartTime()}" th:field="${order.startTime}" required/>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Это поле должно быть заполнено.</div>
+    </div>
+    <div class="form-group">
+        <label for="time-end">Конец</label>
+        <input type="time" id="time-end" th:value="${order.getFinishTime()}" th:field="${order.finishTime}" required/>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Это поле должно быть заполнено.</div>
+    </div>
+    <div class="form-group">
+        <label for="price">Стоимость</label>
+        <input type="number" id="price" th:value="${order.getPrice()}" th:field="${order.price}" required/>
+        <div class="valid-feedback"></div>
+        <div class="invalid-feedback">Это поле должно быть заполнено.</div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Редактировать заказ"/>
 </form>
-<br/>
-<a th:href="@{/orders}">Назад</a>
-</body>
+</div>
 </body>
 </html>

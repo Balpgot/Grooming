@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IPetRepository extends JpaRepository<PetDAO, Long> {
     List<PetDAO> findAllByClient(ClientDAO client);
+    Long countAllByType(String type);
 }

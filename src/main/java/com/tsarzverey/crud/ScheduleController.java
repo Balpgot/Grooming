@@ -60,7 +60,7 @@ public class ScheduleController {
             ordersAsString = new ArrayList<>();
             List<NOrderDAO> dateOrders = orderRepository.findAllByDateOrderByStartTimeAsc(start);
             if(dateOrders.isEmpty()){
-                ordersAsString.add("Заказов нет");
+                ordersAsString.add(" ");
             }
             else{
                 for (NOrderDAO order: dateOrders) {
@@ -99,7 +99,7 @@ public class ScheduleController {
                     mockDaysCounter--;
                 }
                 else {
-                    ordersAsString.add("Заказов нет");
+                    ordersAsString.add(" ");
                 }
 
             }
@@ -119,11 +119,11 @@ public class ScheduleController {
         StringBuilder builder = new StringBuilder();
         builder
                 .append(getDateAsString(order.getDate()))
-                .append("\n")
+                .append("<br />")
                 .append(getTimeAsString(order.getStartTime()))
                 .append("-")
                 .append(getTimeAsString(order.getFinishTime()))
-                .append("\n")
+                .append("<br />")
                 .append(order.getClient().getClientName());
         return builder.toString();
     }

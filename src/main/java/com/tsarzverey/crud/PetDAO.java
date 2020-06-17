@@ -13,14 +13,15 @@ public class PetDAO {
     @JoinColumn(name = "client_pets")
     private ClientDAO client;
     private String comment;
-
+    private String type;
     public PetDAO() {
     }
 
-    public PetDAO(String name, ClientDAO client, String comment) {
+    public PetDAO(String name, ClientDAO client, String comment, String type) {
         this.name = name;
         this.client = client;
         this.comment = comment;
+        this.type = type;
     }
 
     public PetDAO(ClientDAO client) {
@@ -59,6 +60,14 @@ public class PetDAO {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

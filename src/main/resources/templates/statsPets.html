@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика по питомцам</title>
+</head>
+<body>
+<table border="1">
+    <tr><th><a th:href="@{/}">Меню</a></th><th><a th:href="@{/clients}">Клиенты</a></th>
+        <th><a th:href="@{/orders}">Заказы</a></th><th><a th:href="@{/statistics}">Статистика</a></th></tr>
+</table>
+<br/>
+<table border="1">
+    <tr><td>Всего питомцев:</td><td th:text="${counter}"></td></tr>
+    <tr><td>Собак:</td><td th:text="${counter_dogs}"></td></tr>
+    <tr><td>Кошек:</td><td th:text="${counter_cats}"></td></tr>
+    <tr><td>Проценты собак и кошек:</td><td th:text="${dog_percent} + '% / ' + ${cat_percent} + '%'"></td></tr>
+</table>
+</body>
+</html>
