@@ -1,19 +1,19 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.controllers;
 
 import com.alibaba.fastjson.JSON;
+import com.tsarzverey.crud.*;
+import com.tsarzverey.crud.entities.NOrderDAO;
+import com.tsarzverey.crud.repositories.IClientRepository;
+import com.tsarzverey.crud.repositories.INOrderRepository;
+import com.tsarzverey.crud.repositories.IPetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Controller

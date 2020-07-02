@@ -1,7 +1,14 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.controllers;
 
+import com.tsarzverey.crud.entities.ClientDAO;
+import com.tsarzverey.crud.repositories.IClientRepository;
+import com.tsarzverey.crud.repositories.IPetRepository;
+import com.tsarzverey.crud.entities.PetDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
 
 @Controller
 @Slf4j
@@ -34,6 +38,15 @@ public class ClientController {
                         LocalDate.of(2020,6, 14)
                 )
         );
+        this.petRepo.saveAndFlush(
+                new PetDAO(
+                        "Рекс",
+                        clientRepo.findFirstByMobilePhone("+79995359742").get(),
+                        "Ласковый",
+                        "Собака",
+                        "Шпиц"
+                )
+        );
     }
 
     @GetMapping(value = "/")
@@ -44,6 +57,7 @@ public class ClientController {
     @GetMapping(value = "/clients")
     public String all(Model model){
         model.addAttribute("clientList", clientRepo.findAll());
+        Pageable page = PageRequest.of(0,10, Sort.by(Sort.Direction.ASC,"id"));
         return "clientList";
     }
 

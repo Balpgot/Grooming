@@ -1,18 +1,16 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.entities;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.tsarzverey.crud.entities.ClientDAO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "NORDER")
 public class NOrderDAO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "clientOrders", nullable = false)

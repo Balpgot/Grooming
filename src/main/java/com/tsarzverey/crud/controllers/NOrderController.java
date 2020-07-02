@@ -1,5 +1,10 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.controllers;
 
+import com.tsarzverey.crud.entities.ClientDAO;
+import com.tsarzverey.crud.entities.NOrderDAO;
+import com.tsarzverey.crud.entities.NOrderDTO;
+import com.tsarzverey.crud.repositories.IClientRepository;
+import com.tsarzverey.crud.repositories.INOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,13 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.swing.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
 
 @Slf4j
 @Controller
@@ -25,7 +24,7 @@ public class NOrderController {
     public NOrderController(INOrderRepository orderRepo, IClientRepository clientRepo) {
         this.orderRepo = orderRepo;
         this.clientRepo = clientRepo;
-        orderRepo.saveAndFlush(
+        /*orderRepo.saveAndFlush(
                 new NOrderDAO(
                         clientRepo.findFirstByMobilePhone("+79995359742").get(),
                         LocalDate.of(2020,6,15),
@@ -48,7 +47,7 @@ public class NOrderController {
                         LocalTime.of(11,0),
                         LocalTime.of(12,0),
                         1000
-                ));
+                ));*/
     }
 
     @GetMapping(value = "/orders")
@@ -71,7 +70,8 @@ public class NOrderController {
         orderDAO.setStartTime(convertTime(order.getStartTime()));
         orderDAO.setFinishTime(convertTime(order.getFinishTime()));
         orderDAO.setPrice(Integer.parseInt(order.getPrice()));
-        orderRepo.saveAndFlush(orderDAO);
+        orderRepo.save(orderDAO);
+        orderRepo.flush();
         Long id = orderRepo.findFirstByClient_MobilePhoneAndDate(order.getClientPhone(), order.getDate()).get().getId();
         return "redirect:/orders/" + id;
     }
@@ -116,6 +116,7 @@ public class NOrderController {
 
     private LocalTime convertTime(String s){
         String [] timeString = s.split(":");
+
         return LocalTime.of(
                 Integer.parseInt(timeString[0]),
                 Integer.parseInt(timeString[1])

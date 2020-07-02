@@ -1,4 +1,6 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.entities;
+
+import com.tsarzverey.crud.entities.ClientDAO;
 
 import javax.persistence.*;
 
@@ -6,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class PetDAO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     @ManyToOne
@@ -14,14 +16,16 @@ public class PetDAO {
     private ClientDAO client;
     private String comment;
     private String type;
+    private String poroda;
     public PetDAO() {
     }
 
-    public PetDAO(String name, ClientDAO client, String comment, String type) {
+    public PetDAO(String name, ClientDAO client, String comment, String type, String poroda) {
         this.name = name;
         this.client = client;
         this.comment = comment;
         this.type = type;
+        this.poroda = poroda;
     }
 
     public PetDAO(ClientDAO client) {
@@ -70,13 +74,23 @@ public class PetDAO {
         this.type = type;
     }
 
+    public String getPoroda() {
+        return poroda;
+    }
+
+    public void setPoroda(String poroda) {
+        this.poroda = poroda;
+    }
+
     @Override
     public String toString() {
         return "PetDAO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", client=" + client.getId() +
+                ", client=" + client +
                 ", comment='" + comment + '\'' +
+                ", type='" + type + '\'' +
+                ", poroda='" + poroda + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

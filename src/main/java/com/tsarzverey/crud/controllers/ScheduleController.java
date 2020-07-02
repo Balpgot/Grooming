@@ -1,5 +1,7 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.controllers;
 
+import com.tsarzverey.crud.repositories.INOrderRepository;
+import com.tsarzverey.crud.entities.NOrderDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.SortedMap;
 
 @Slf4j
 @Controller

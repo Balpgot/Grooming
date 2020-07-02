@@ -1,5 +1,6 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.repositories;
 
+import com.tsarzverey.crud.entities.NOrderDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

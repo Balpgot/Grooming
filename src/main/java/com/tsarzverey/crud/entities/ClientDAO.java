@@ -1,9 +1,7 @@
-package com.tsarzverey.crud;
+package com.tsarzverey.crud.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -11,7 +9,7 @@ import java.util.Set;
 public class ClientDAO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
     private String clientName;

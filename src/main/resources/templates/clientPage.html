@@ -54,13 +54,14 @@
     <br/>
     <table class="table table-hover">
         <thead class="thead-light">
-            <tr><th>№</th><th>КЛИЧКА</th><th>ТИП</th></tr>
+            <tr><th>№</th><th>КЛИЧКА</th><th>ТИП</th><th>ПОРОДА</th></tr>
         </thead>
         <tbody>
             <tr th:each="petList:${petList}">
                 <td th:text="${petList.getId()}"></td>
                 <td th:text="${petList.getName()}"></td>
                 <td th:text="${petList.getType()}"></td>
+                <td th:text="${petList.getPoroda()}"></td>
             </tr>
         </tbody>
     </table>
@@ -84,6 +85,17 @@
             <select class="form-control" th:field="${newPet.type}" id="type" size="1">
                 <option value="" disabled>Выберите вид животного</option>
                 <option value="Собака">Собака</option>
+                <option value="Кошка">Кошка</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="poroda">Порода</label>
+            <select class="form-control" th:field="${newPet.poroda}" id="poroda" size="1">
+                <option value="" disabled>Выберите породу</option>
+                <option value="Шпиц">Шпиц</option>
+                <option value="Бишон">Бишон</option>
+                <option value="Йорк">Йорк</option>
+                <option value="Дворняга">Дворняга</option>
                 <option value="Кошка">Кошка</option>
             </select>
         </div>
