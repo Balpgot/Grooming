@@ -32,13 +32,11 @@ public class QueryController {
     @GetMapping(value = "/query")
     public String loadPage(Model model) {
         model.addAttribute("pet", new PetDAO());
-        model.addAttribute("clientList", new ArrayList<ClientDAO>());
         return "queryPage";
     }
 
     @GetMapping(value = "/query/{poroda}")
     public String loadPage(@PathVariable String poroda, Model model) {
-        model.addAttribute("pet", new PetDAO());
         if(!poroda.isBlank()){
             switch (poroda){
                 case "1": poroda="Шпиц"; break;
@@ -57,10 +55,10 @@ public class QueryController {
         else{
             model.addAttribute("clientList", new ArrayList<ClientDAO>());
         }
-        return "queryPage";
+        return "queryResult :: clientRequestResult";
     }
 
-    @PostMapping(value = "/query/{poroda}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    /*@PostMapping(value = "/query/{poroda}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String getResult(@PathVariable String poroda, PetDAO pet){
         System.out.println(pet);
         return "redirect:/query/"+pet.getPoroda();
@@ -70,5 +68,5 @@ public class QueryController {
     public String getResult(PetDAO pet){
         System.out.println(pet);
         return "redirect:/query/"+pet.getPoroda();
-    }
+    }*/
 }

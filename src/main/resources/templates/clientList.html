@@ -38,6 +38,13 @@
     </ul>
 </nav>
 <div class="container-fluid">
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Поиск по номеру телефона:</label>
+            <input class="form-control" type="text" id="name" th:field="${search.mobilePhone}" required/>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Найти"/>
+    </form>
 <br/>
 <a class="btn btn-info" th:href="@{/clients/add}">Добавить пользователя</a>
 <br/>
@@ -45,7 +52,7 @@
     <thead class="thead-light">
         <tr><th>ID</th><th>ИМЯ</th><th>НОМЕР</th><th>МЕСТНЫЙ</th></tr>
     </thead>
-    <tbody>
+    <tbody id="clientsListArea">
         <tr th:each="clientList:${clientList}">
             <td th:text="${clientList.getId()}"></td>
             <td><a th:href="@{${#httpServletRequest.requestURI}+'/'+${clientList.getId()}}" th:text="${clientList.getClientName()}"></a></td>

@@ -1,23 +1,24 @@
 package com.tsarzverey.crud.controllers;
 
+import antlr.collections.List;
 import com.tsarzverey.crud.entities.ClientDAO;
 import com.tsarzverey.crud.repositories.IClientRepository;
 import com.tsarzverey.crud.repositories.IPetRepository;
 import com.tsarzverey.crud.entities.PetDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 @Controller
 @Slf4j
@@ -30,23 +31,6 @@ public class ClientController {
     public ClientController(IClientRepository clientRepo, IPetRepository petRepo) {
         this.clientRepo = clientRepo;
         this.petRepo = petRepo;
-        this.clientRepo.saveAndFlush(
-                new ClientDAO(
-                        "Иван",
-                        "+79995359742",
-                        true,
-                        LocalDate.of(2020,6, 14)
-                )
-        );
-        this.petRepo.saveAndFlush(
-                new PetDAO(
-                        "Рекс",
-                        clientRepo.findFirstByMobilePhone("+79995359742").get(),
-                        "Ласковый",
-                        "Собака",
-                        "Шпиц"
-                )
-        );
     }
 
     @GetMapping(value = "/")
@@ -56,9 +40,23 @@ public class ClientController {
 
     @GetMapping(value = "/clients")
     public String all(Model model){
-        model.addAttribute("clientList", clientRepo.findAll());
-        Pageable page = PageRequest.of(0,10, Sort.by(Sort.Direction.ASC,"id"));
+        model.addAttribute("clientList",clientRepo.findAll());
+        model.addAttribute("search", new ClientDAO());
         return "clientList";
+    }
+
+    @PostMapping(value = "/clients")
+    public String searchByPhone(ClientDAO clientDAO) {
+        ClientDAO findClient =
+                clientRepo
+                        .findFirstByMobilePhone(clientDAO.getMobilePhone())
+                        .orElse(null);
+        if(findClient != null){
+            return "redirect:/clients/" + findClient.getId();
+        }
+        else{
+            return "redirect:/clients";
+        }
     }
 
     @GetMapping(value = "/clients/{id}")

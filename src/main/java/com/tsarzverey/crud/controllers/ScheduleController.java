@@ -122,7 +122,9 @@ public class ScheduleController {
                 .append("-")
                 .append(getTimeAsString(order.getFinishTime()))
                 .append("<br />")
-                .append(order.getClient().getClientName());
+                .append(order.getClient().getClientName())
+                .append("<br />")
+                .append(order.getClient().getMobilePhone());
         return builder.toString();
     }
 
